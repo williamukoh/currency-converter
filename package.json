@@ -1,7 +1,7 @@
 {
-  "name": "7daysofcode",
+  "name": "currency-converter",
   "version": "0.0.1",
-  "description": "ALCWithGoogle #7DaysofCodeChallenge",
+  "description": "Currency Converter is a simple web app made for #7DaysofCodeChallenge",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/williamukoh/7Days-Of-Code-Challenge.git"
+    "url": "git+https://github.com/williamukoh/currency-converter.git"
   },
   "keywords": [
     "udacity",
@@ -20,9 +20,9 @@
   "author": "@williamukoh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/williamukoh/7Days-Of-Code-Challenge/issues"
+    "url": "https://github.com/williamukoh/currency-converter/issues"
   },
-  "homepage": "https://github.com/williamukoh/7Days-Of-Code-Challenge#readme",
+  "homepage": "https://github.com/williamukoh/currency-converter#readme",
   "devDependencies": {
     "browser-sync": "^2.24.5",
     "del": "^3.0.0",
