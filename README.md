@@ -2,17 +2,19 @@
 
 Currency Converter is a simple web app made for #7DaysofCodeChallenge — an initiative of the Google Africa Scholarship challenge course organized in conjuction with [Andela Learning Community](https://andela.com/alcwithgoogle/)
 
+---
+
+## About the challenge 
+
 7 Days of Code Challenge is an individual project/program completion task for the ALC learners. The goal is to:
 - determine your overall progress in the ALC program, and identify the top 100 learners from this track
 - To test the skills learned by learners and certify the top learners at the end of the program.
 
-
-## Introduction 
 [Freecurrencyconverterapi](https://free.currencyconverterapi.com/) is an API that converts one currency to another and returns result in json format.
 
 You are required to implement a front-end application that takes advantage of the functionalities Freecurrencyconverterapi provides. The application should be able convert one currency to another while offline or online.
 
-## Requirements
+### Challenge requirements
 
 - All Javascript MUST be written in >=ES6
 - Use Github repository for version control.
@@ -23,13 +25,16 @@ You are required to implement a front-end application that takes advantage of th
 - You are not to use any service worker library
 
 
-## Application Functions
+### Application Functions
 At minimum users should be able to:
 - Select currencies to be converted from and to
 - Convert currencies while the application is online or offline
 
 
-## Solution to Challenge
+---
+
+
+## Solution to challenge
 
 ### Built With
 
