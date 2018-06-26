@@ -1,0 +1,25 @@
+<!doctype html>
+<html class="no-js" lang="en-NG">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>#7DaysofCodeChallenge</title>
+        <meta name="description" content="ALC #7DaysofCodeChallenge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="assets/css/build.min.css">
+        <!-- <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script> -->
+    </head>
+    <body>
+        <div class="page-wrapper">
+
+            <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+            {% include "partials/header.nunjucks" %}
+
+            {% block content %} {% endblock %}
+
+        </div>
+        <script src="assets/js/build.js"></script>
+    </body>
+</html>
