@@ -1,5 +1,6 @@
 # 7 Days Of Code Challenge
 
+Part of the Google Africa Scholarship challenge course organized in conjuction with [Andela Learning Community](https://andela.com/alcwithgoogle/)
 
 7 Days of Code Challenge is an individual project/program completion task for the ALC learners. The goal is to:
 - determine your overall progress in the ALC program, and identify the top 100 learners from this track
