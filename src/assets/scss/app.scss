@@ -1,3 +1,13 @@
 @charset "utf-8";
-@import "bulma/bulma.sass";
+@import "bulma/bulma";
+@import "spinkit/scss/spinners/1-rotating-plane";
 
+html,body { background: linear-gradient(to bottom, white, black) !important; }
+
+.sk-rotating-plane {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    margin: 40px auto;
+    -webkit-animation: sk-rotatePlane 1.2s infinite ease-in-out;
+            animation: sk-rotatePlane 1.2s infinite ease-in-out; }

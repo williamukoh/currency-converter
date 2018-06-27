@@ -9,6 +9,7 @@ var
   imageminJpegRecompress = require('imagemin-jpeg-recompress'),
   imageminPngQuant  = require ('imagemin-pngquant'),
   concat = require('gulp-concat'),
+  autoprefixer = require('gulp-autoprefixer'),
   // stripdebug = require('gulp-strip-debug'),
   uglify = require('gulp-uglify-es').default,
   browserSync = require('browser-sync').create(),
@@ -94,10 +95,11 @@ gulp.task('sass+css', gulp.series('images', function() {
                             // .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) );
 
     var _sassStream = gulp.src( folder.src  + 'assets/scss/**/*.scss' )
-                            .pipe( sass( {  outputStyle: 'compressed', sourceMap:true, includePaths: ['node_modules'] } ).on('error', sass.logError) )  ;
+                            .pipe( sass( {  outputStyle: 'compressed', sourceMap:true, includePaths: ['node_modules'] } ).on('error', sass.logError) );
 
     return merge( _sassStream, _cssStream )
             .pipe( purify( [ folder.dist + 'assets/js/**/*.js', folder.dist + '**/*.html' ] ) )
+            .pipe( autoprefixer() )
             .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) )
             .pipe( concat('build.min.css') )
             .pipe( gulp.dest( folder.dist + 'assets/css/') )
