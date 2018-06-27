@@ -9,10 +9,9 @@ var
   imageminJpegRecompress = require('imagemin-jpeg-recompress'),
   imageminPngQuant  = require ('imagemin-pngquant'),
   concat = require('gulp-concat'),
-  stripdebug = require('gulp-strip-debug'),
+  // stripdebug = require('gulp-strip-debug'),
   uglify = require('gulp-uglify-es').default,
   browserSync = require('browser-sync').create(),
-  runSequence = require('run-sequence'),
   deporder = require('gulp-deporder'),
   merge = require('merge-stream'),
   del = require('del'),
@@ -33,21 +32,13 @@ var
 // JavaScript processing
 gulp.task('js', function() {
 
-    var jsStream = gulp.src(folder.src + 'assets/js/**/*.js')
+    return gulp.src(folder.src + 'assets/js/**/*.js')
       .pipe(sourcemaps.init())
       .pipe( deporder() )
       .pipe( uglify() )
-      .pipe( concat('build.js') );
-  
-    // if ( !devBuild ) {
-    //   jsStream = jsStream
-    //     .pipe(stripdebug())
-    //     .pipe(uglify());
-    // }
-  
-    return jsStream
-              .pipe( sourcemaps.write( "." ) )
-              .pipe( gulp.dest(folder.dist + 'assets/js/') );
+      .pipe( concat('build.js') )
+      .pipe( sourcemaps.write( "." ) )
+      .pipe( gulp.dest(folder.dist + 'assets/js/') );
   
 });
 
@@ -74,17 +65,17 @@ gulp.task('images', function() {
   });
 
 // SASS processing
-gulp.task('sass', ['images'], function() {
+gulp.task('sass', gulp.series( 'images', function() {
 
     return gulp.src( folder.src  + 'assets/scss/**/*.scss' )
                 .pipe( sass( { outputStyle: 'compressed'} ).on('error', sass.logError) )
                 .pipe( gulp.dest( folder.dist + 'assets/css/') )
                 .pipe( browserSync.reload({ stream: true }) );
 
-});
+}) );
 
 // CSS processing
-gulp.task('css', ['images'], function() {
+gulp.task('css', gulp.series('images', function() {
 
     return gulp.src( folder.src  + 'assets/css/**/*.css' )
                 .pipe( deporder() )
@@ -93,10 +84,10 @@ gulp.task('css', ['images'], function() {
                 .pipe( gulp.dest( folder.dist + 'assets/css/') )
                 .pipe( browserSync.reload({ stream: true }) );
 
-});
+}));
 
 // combine css and sass processing
-gulp.task('sass+css', ['images'], function() {
+gulp.task('sass+css', gulp.series('images', function() {
 
     var _cssStream =  gulp.src( folder.src  + 'assets/css/**/*.css' )
                             .pipe( deporder() )
@@ -111,7 +102,8 @@ gulp.task('sass+css', ['images'], function() {
             .pipe( concat('build.min.css') )
             .pipe( gulp.dest( folder.dist + 'assets/css/') )
             .pipe( browserSync.reload({ stream: true }) );
-});
+            
+}));
 
 // copy
 gulp.task('copy', function() {
@@ -136,7 +128,7 @@ gulp.task('nunjucks', function() {
 });
 
 // browser-sync
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function(cb) {
 
   browserSync.init({
     server: {
@@ -145,50 +137,44 @@ gulp.task('browser-sync', function() {
     },
     files: [ folder.dist + "assets/**/*.css",  folder.dist + "assets/**/*.js"],
     open: false
-  });
+  }, cb);
   
 });
 
 // clean "assets" directory
 gulp.task( 'clean:assets', function(){
-
-  return del.sync( folder.dist + 'assets' );
-
+  return del( folder.dist + 'assets' );
 });
+
 // watch for changes
 gulp.task('watch', function() { 
 
     // image changes
-    gulp.watch(folder.src + 'assets/img/**/*', ['images']);
+    gulp.watch(folder.src + 'assets/img/**/*', gulp.parallel('images'));
   
     // html changes
     // gulp.watch(folder.src + 'html/**/*', ['html']);
     
     // nunjuck changes
-    gulp.watch(folder.src + 'pages/**/*', ['nunjucks', 'sass+css']);
-    gulp.watch(folder.src + 'templates/**/*', ['nunjucks', 'sass+css']);
+    gulp.watch(folder.src + 'pages/**/*', gulp.parallel('nunjucks', 'sass+css') );
+    gulp.watch(folder.src + 'templates/**/*', gulp.parallel('nunjucks', 'sass+css') );
   
     // javascript changes
-    gulp.watch(folder.src + 'assets/js/**/*.js', ['js']);
+    gulp.watch(folder.src + 'assets/js/**/*.js', gulp.series('js') );
   
     // css changes
     // gulp.watch(folder.src + 'assets/css/**/*.css', ['css']);
-    gulp.watch(folder.src + 'assets/css/**/*.css', ['sass+css']);
+    gulp.watch(folder.src + 'assets/css/**/*.css', gulp.series('sass+css') );
 
     // watch for sass changes
     // gulp.watch(folder.src + 'assets/scss/**/*', ['sass']);
-    gulp.watch(folder.src + 'assets/scss/**/*.scss', ['sass+css']);
+    gulp.watch(folder.src + 'assets/scss/**/*.scss', gulp.series('sass+css') );
 
     // watch for changes to HTML in output folder
-    gulp.watch( folder.dist + "**/*html", browserSync.reload ); 
+    gulp.watch( folder.dist + "**/*html").on( 'all' , browserSync.reload ); 
   
   });
 
-gulp.task('build', function( $callback ){
+gulp.task('build', gulp.series( 'clean:assets', 'nunjucks', 'sass+css', 'js', 'copy', 'browser-sync', 'watch') );
 
-  // runSequence( 'sass', 'js', 'css', 'browser-sync', 'watch' );
-  runSequence( 'clean:assets', 'nunjucks', 'sass+css', 'js', 'copy', 'browser-sync', 'watch', $callback );
-
-});
-
-gulp.task( 'default', ['build'] ); 
+gulp.task('default', gulp.series('build') ); 

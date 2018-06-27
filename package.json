@@ -27,7 +27,6 @@
   "devDependencies": {
     "browser-sync": "^2.24.5",
     "del": "^3.0.0",
-    "gulp": "^4.0.0",
     "gulp-clean-css": "^3.9.4",
     "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.1.0",
@@ -37,7 +36,6 @@
     "gulp-purifycss": "^0.2.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-strip-debug": "^3.0.0",
     "gulp-uglify-es": "^1.0.4",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.1.0",
@@ -45,6 +43,7 @@
     "run-sequence": "^2.2.1"
   },
   "dependencies": {
-    "bulma": "^0.7.1"
+    "bulma": "^0.7.1",
+    "gulp": "^4.0.0"
   }
 }
