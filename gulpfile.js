@@ -65,45 +65,26 @@ gulp.task('images', function() {
       
   });
 
-// SASS processing
-gulp.task('sass', gulp.series( 'images', function() {
-
-    return gulp.src( folder.src  + 'assets/scss/**/*.scss' )
-                .pipe( sass( { outputStyle: 'compressed'} ).on('error', sass.logError) )
-                .pipe( gulp.dest( folder.dist + 'assets/css/') )
-                .pipe( browserSync.reload({ stream: true }) );
-
-}) );
-
-// CSS processing
-gulp.task('css', gulp.series('images', function() {
-
-    return gulp.src( folder.src  + 'assets/css/**/*.css' )
-                .pipe( deporder() )
-                .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) )
-                .pipe( concat('build.css') )
-                .pipe( gulp.dest( folder.dist + 'assets/css/') )
-                .pipe( browserSync.reload({ stream: true }) );
-
-}));
-
 // combine css and sass processing
 gulp.task('sass+css', gulp.series('images', function() {
 
     var _cssStream =  gulp.src( folder.src  + 'assets/css/**/*.css' )
+                            .pipe( sourcemaps.init() )
                             .pipe( deporder() )
                             // .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) );
 
     var _sassStream = gulp.src( folder.src  + 'assets/scss/**/*.scss' )
+                            .pipe( sourcemaps.init() )
                             .pipe( sass( {  outputStyle: 'compressed', sourceMap:true, includePaths: ['node_modules'] } ).on('error', sass.logError) );
 
     return merge( _sassStream, _cssStream )
-            .pipe( purify( [ folder.dist + 'assets/js/**/*.js', folder.dist + '**/*.html' ] ) )
-            .pipe( autoprefixer() )
-            .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) )
-            .pipe( concat('build.min.css') )
-            .pipe( gulp.dest( folder.dist + 'assets/css/') )
-            .pipe( browserSync.reload({ stream: true }) );
+              .pipe( purify( [ folder.dist + 'assets/js/**/*.js', folder.dist + '**/*.html' ] ) )
+              .pipe( autoprefixer() )
+              .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) )
+              .pipe( concat('build.min.css') )
+            .pipe( sourcemaps.write("/"))
+              .pipe( gulp.dest( folder.dist + 'assets/css/') )
+              .pipe( browserSync.reload({ stream: true }) );
             
 }));
 
