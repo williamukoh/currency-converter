@@ -38,15 +38,17 @@ At minimum users should be able to:
 ## Solution to challenge
 
 ### Built With
+- Bulma framework
 
 ### Getting Started
+- Clone repo `git clone http://github.com/williamukoh/currency-converter`
+- Run `npm install` to install dependencies
 
+### Running solution
 
-### Prerequisites
-
-
-### Installing and Running solution
-
+- Ensure you're in the root directory of project
+- Run `npm start` and browse to `http://localhost:3000` to view project
+- To deploy to Github pages, run `npm run deploy` and visit `http://<GITHUB-USERNAME>.github.com/currency-converter`
 
 ## License
 

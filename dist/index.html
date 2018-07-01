@@ -7,7 +7,7 @@
         <meta name="description" content="Currency Concerter - ALCWithGoogle #7DaysofCodeChallenge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="assets/css/build.min.css?t=1530464006968">
+        <link rel="stylesheet" href="assets/css/build.min.css?t=1530486049709">
     </head>
     <body>
 
@@ -17,7 +17,111 @@
         </div>
     </div>
   
+    <div class="page-wrapper">
     
+        <div class="header-wrapper">
+        
+            <header role="banner" class="main-header">
+                
+                <nav class="navbar" role="navigation" aria-label="main navigation">
+
+                    <div class="navbar-brand">
+
+                        <a class="navbar-item" href="http://williamukoh.github.io/currencyconverter">
+                            Currency <span>Converter</span>
+                        </a>
+
+                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a>
+
+                    </div>
+
+                    <div class="navbar-menu">
+                        <div class="navbar-end">
+                            <a class="navbar-item" href="index.html">Home</a>
+                            <a class="navbar-item" href="about.html">About</a>
+                            <a class="navbar-item" href="http://github.com/williamukoh/currency-converter">Github</a>
+                        </div>
+                    </div>
+
+                </nav>
+                
+            </header>
+        
+        </div>
+
+        <div class="main-wrapper">
+
+            <main role="main" class="main">
+
+                <header>
+                    <h1>Currency Converter</h1>
+                    <h3>Currency Converter is a simple web app made for #7DaysofCodeChallenge</h3>
+                    <p>Convert one currency to another</p>
+                </header>
+
+                <section class="converter-wrapper">
+
+                    <div class="tabs is-medium">
+                        <ul>
+                            <li class="is-active"><a id="tab1Btn">Convert</a></li>
+                            <li><a id="tab2Btn">History</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="tabs-content">
+
+                        <div class="tab1 tab convert-tab" id="tab1">
+                            <form>
+                                <div class="field">
+                                    <label class="label">Convert from</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="c1Field">
+                                                <option>Select currency</option>
+                                                <option>With options</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">To</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="c2Field">
+                                                <option>Select currency</option>
+                                                <option>With options</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab2 tab history-tab" id="tab2">
+                            History
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+        <div class="footer-wrapper">
+
+            <footer role="contentinfo">
+
+            </footer>
+
+        </div>
+    
+    </div>
 
         
 
@@ -29,6 +133,6 @@
     
 
 
-        <script src="assets/js/build.js?t=1530464006968"></script>
+        <script src="assets/js/build.js?t=1530486049709"></script>
     </body>
 </html>
