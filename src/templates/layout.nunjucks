@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Currency Concerter - ALCWithGoogle #7DaysofCodeChallenge</title>
+        <title>Currency Converter - ALCWithGoogle #7DaysofCodeChallenge</title>
         <meta name="description" content="Currency Concerter - ALCWithGoogle #7DaysofCodeChallenge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +12,7 @@
     <body>
 
     <div class="preloader-wrapper">
-        <div class="preloader" style="background:red;">
+        <div class="preloader">
             <div class="sk-rotating-plane"></div>
         </div>
     </div>

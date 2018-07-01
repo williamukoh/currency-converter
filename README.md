@@ -19,10 +19,11 @@ You are required to implement a front-end application that takes advantage of th
 - All Javascript MUST be written in >=ES6
 - Use Github repository for version control.
 - Host a working version of the application on Github-Pages.
-- The application must make use of the following Service Worker
-- Cache API
-- IndexedDB
-- You are not to use any service worker library
+- The application must make use of the following:
+    - Service Worker
+    - Cache API
+    - IndexedDB
+    - You are not to use any service worker library
 
 
 ### Application Functions

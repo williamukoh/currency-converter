@@ -1,13 +1,24 @@
 @charset "utf-8";
+
+@import "_mixins";
 @import "bulma/bulma";
 @import "spinkit/scss/spinners/1-rotating-plane";
 
-html,body { background: linear-gradient(to bottom, white, black) !important; }
+
+@include font-face( "BlissRegular", "../fonts/bliss/bliss-regular-webfont");
+
+html,body { height:100%; line-height: 100%; font-size: 1rem; text-size-adjust: 90%;}
+h1,h2,h3,h4,h5 { font-family: "BlissRegular"; }
 
 .sk-rotating-plane {
     width: 40px;
     height: 40px;
-    background-color: #333;
+    background-color: rgba(255,255,255,0.8);
     margin: 40px auto;
     -webkit-animation: sk-rotatePlane 1.2s infinite ease-in-out;
-            animation: sk-rotatePlane 1.2s infinite ease-in-out; }
+            animation: sk-rotatePlane 1.2s infinite ease-in-out; 
+}
+
+div.preloader-wrapper { transition:opacity 0.7s; position: absolute; display: flex; justify-content: center; align-items: center; width:100%; top:0; left:0; right:0; bottom: 0; background:rgba(82, 103, 223, 0.8); }
+div.preloader-wrapper.hide { opacity: 0; }
+

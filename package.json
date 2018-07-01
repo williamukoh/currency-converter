@@ -4,7 +4,7 @@
   "description": "Currency Converter is a simple web app made for #7DaysofCodeChallenge",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
+    "start": "gulp auto-reload --task build",
     "deploy": "./gh-deploy dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,26 +26,28 @@
   "homepage": "https://github.com/williamukoh/currency-converter#readme",
   "devDependencies": {
     "browser-sync": "^2.24.5",
+    "cssnano": "^3.10.0",
     "del": "^3.0.0",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean-css": "^3.9.4",
+    "gulp": "^4.0.0",
+    "gulp-cache-bust": "^1.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.1.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-newer": "^1.4.0",
     "gulp-nunjucks-render": "^2.2.2",
-    "gulp-purifycss": "^0.2.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-purgecss": "^1.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.4",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.1.0",
     "merge-stream": "^1.0.1",
+    "postcss-import": "^11.1.0",
     "run-sequence": "^2.2.1"
   },
   "dependencies": {
     "bulma": "^0.7.1",
-    "gulp": "^4.0.0",
     "spinkit": "^1.2.5"
   }
 }

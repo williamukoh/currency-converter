@@ -2,23 +2,28 @@
 var
   // modules
   gulp = require('gulp'),
+  argv = require('yargs').argv,
+  spawn = require('child_process').spawn,
   newer = require('gulp-newer'),
   sass = require('gulp-sass'),
-  cleancss = require('gulp-clean-css'),
   imagemin = require('gulp-imagemin'),
   imageminJpegRecompress = require('imagemin-jpeg-recompress'),
   imageminPngQuant  = require ('imagemin-pngquant'),
   concat = require('gulp-concat'),
-  autoprefixer = require('gulp-autoprefixer'),
+  postcss = require('gulp-postcss'),
+  atImport = require('postcss-import'),
+  autoprefixer = require('autoprefixer'),
+  cssnano = require('cssnano'),
+  purgecss = require('gulp-purgecss'),
   // stripdebug = require('gulp-strip-debug'),
   uglify = require('gulp-uglify-es').default,
   browserSync = require('browser-sync').create(),
   deporder = require('gulp-deporder'),
   merge = require('merge-stream'),
   del = require('del'),
-  purify = require('gulp-purifycss'),
   sourcemaps = require('gulp-sourcemaps'),
-  nunjucksRender = require('gulp-nunjucks-render');
+  nunjucksRender = require('gulp-nunjucks-render'),
+  cachebust = require('gulp-cache-bust');
 
   // development mode?
   devBuild = (process.env.NODE_ENV !== 'production'),
@@ -33,7 +38,7 @@ var
 // JavaScript processing
 gulp.task('js', function() {
 
-    return gulp.src(folder.src + 'assets/js/**/*.js')
+    return gulp.src( [folder.src + 'assets/js/**/*.js', '!'+folder.src + 'assets/js/sw.js'])
       .pipe(sourcemaps.init())
       .pipe( deporder() )
       .pipe( uglify() )
@@ -49,13 +54,13 @@ gulp.task('images', function() {
     var dest = folder.dist + 'assets/img/';
 
     return gulp.src( folder.src + 'assets/img/**/*.+(png|jpg|jpeg|gif|svg)' )
-      .pipe( newer(dest) ) // only if it's a new or updated image
+      .pipe(newer(dest)) // only if it's a new or updated image
       .pipe(imagemin([
         imagemin.gifsicle(),
         imageminJpegRecompress({
             loops:6,
-            min: 40,
-            max: 85,
+            min: 65,
+            max: 90,
             quality:'low'
         }),
         imageminPngQuant(),
@@ -68,6 +73,8 @@ gulp.task('images', function() {
 // combine css and sass processing
 gulp.task('sass+css', gulp.series('images', function() {
 
+    var postcssPlugins = [autoprefixer,cssnano];
+
     var _cssStream =  gulp.src( folder.src  + 'assets/css/**/*.css' )
                             .pipe( sourcemaps.init() )
                             .pipe( deporder() )
@@ -78,11 +85,11 @@ gulp.task('sass+css', gulp.series('images', function() {
                             .pipe( sass( {  outputStyle: 'compressed', sourceMap:true, includePaths: ['node_modules'] } ).on('error', sass.logError) );
 
     return merge( _sassStream, _cssStream )
-              .pipe( purify( [ folder.dist + 'assets/js/**/*.js', folder.dist + '**/*.html' ] ) )
-              .pipe( autoprefixer() )
-              .pipe( cleancss(  { level: { 1: { specialComments: 0 } } }  ) )
+              // the order of the following plugins really matters( 1. process the css 2. remove unwanted stuff 3. concatenate)
+              .pipe( postcss(postcssPlugins) )
+              .pipe( purgecss( { content: [ folder.dist + 'assets/js/**/*.js', folder.dist + '**/*.html' ] } ) )
               .pipe( concat('build.min.css') )
-            .pipe( sourcemaps.write("/"))
+            .pipe( sourcemaps.write(".") )
               .pipe( gulp.dest( folder.dist + 'assets/css/') )
               .pipe( browserSync.reload({ stream: true }) );
             
@@ -92,8 +99,11 @@ gulp.task('sass+css', gulp.series('images', function() {
 gulp.task('copy', function() {
 
     // nothing to do. just move the files
-    return gulp.src( folder.src + 'assets/fonts/**/*')
-      .pipe( gulp.dest( folder.dist + 'assets/fonts') );
+    gulp.src( folder.src + 'assets/js/sw.js' )
+      .pipe( gulp.dest( folder.dist ) );
+      
+    return gulp.src( folder.src + 'assets/fonts/**/*' )
+      .pipe( gulp.dest( folder.dist + "assets/fonts" ) );
 
 });
 
@@ -129,6 +139,33 @@ gulp.task( 'clean:assets', function(){
   return del( folder.dist + 'assets' );
 });
 
+// cachebust
+gulp.task( 'html', function(cb){
+  cb();
+  return gulp.src( folder.dist + '**/*.html' )
+              .pipe(cachebust({
+                type: 'timestamp'
+              }))
+              .pipe( gulp.dest( folder.dist ) );
+  
+});
+
+// watch changes to gulpfile.js
+gulp.task('auto-reload', function() {
+  var p;
+
+  gulp.watch('gulpfile.js', spawnChildren);
+  spawnChildren();
+
+  function spawnChildren(e) {
+      // kill previous spawned process
+      if(p) { p.kill(); }
+
+      // `spawn` a child `gulp` process linked to the parent `stdio`
+      p = spawn('gulp', [argv.task], {stdio: 'inherit'});
+  }
+});
+
 // watch for changes
 gulp.task('watch', function() { 
 
@@ -143,21 +180,21 @@ gulp.task('watch', function() {
     gulp.watch(folder.src + 'templates/**/*', gulp.parallel('nunjucks', 'sass+css') );
   
     // javascript changes
-    gulp.watch(folder.src + 'assets/js/**/*.js', gulp.series('js') );
+    gulp.watch(folder.src + 'assets/js/**/*.js', gulp.series('js', 'html') );
   
     // css changes
     // gulp.watch(folder.src + 'assets/css/**/*.css', ['css']);
-    gulp.watch(folder.src + 'assets/css/**/*.css', gulp.series('sass+css') );
+    gulp.watch(folder.src + 'assets/css/**/*.css', gulp.series('sass+css','html') );
 
     // watch for sass changes
     // gulp.watch(folder.src + 'assets/scss/**/*', ['sass']);
-    gulp.watch(folder.src + 'assets/scss/**/*.scss', gulp.series('sass+css') );
+    gulp.watch(folder.src + 'assets/scss/**/*.scss', gulp.series('sass+css', 'html') );
 
     // watch for changes to HTML in output folder
-    gulp.watch( folder.dist + "**/*html").on( 'all' , browserSync.reload ); 
+    gulp.watch( folder.dist + "**/*.html").on( 'all' , browserSync.reload ); 
   
   });
 
-gulp.task('build', gulp.series( 'clean:assets', 'nunjucks', 'sass+css', 'js', 'copy', 'browser-sync', 'watch') );
+gulp.task('build', gulp.series( 'clean:assets', 'nunjucks', 'js', 'sass+css', 'copy', 'html', 'browser-sync', 'watch') );
 
 gulp.task('default', gulp.series('build') ); 
