@@ -22,6 +22,7 @@
     }
 
     getCurrencies() {
+
       return new Promise( (resolves, rejects) => {
         
         fetch( "https://free.currencyconverterapi.com/api/v5/currencies" ).then( ($result) => {
@@ -29,9 +30,17 @@
             resolves($data);
           })
         }).catch( ($error) => {
-          rejects( "Failed to load currencies" );
+          rejects( `Failed to load currencies from remote API [${$error}]` );
         })
         
+      });
+    }
+
+    convert( $amount=0, $fromCurrency="", $toCurrency="" ) {
+      return new Promise( ( $resolves, $rejects ) => {
+
+        setTimeout( () => $resolves("data loaded"), 3000 );
+
       })
     }
 

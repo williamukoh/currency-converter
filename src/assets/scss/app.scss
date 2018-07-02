@@ -16,6 +16,7 @@ h2 { font-size: 1.7rem; }
 h3 { font-size: 1.3rem; }
 h4 { font-size: 1.1rem; }
 
+*[class*="-wrapper"] { margin-left:auto; margin-right:auto; }
 
 .sk-rotating-plane {
     width: 40px;
@@ -46,7 +47,8 @@ main { padding:0 15px; margin-left:auto; margin-right:auto; }
 
 .convert-form .field:first-child { margin-top: 0; }
 .field { margin-top:1.5em; margin-bottom:1.5em; }
-.amount-field input { width:165px !important; text-align: right; }
-.submit-btn { width:165px !important; }
+.amount-field input { width:220px !important; text-align: right; }
+.submit-btn { width:220px !important; }
+.notification { display:none; font-weight:bold; line-height: 1.7; border-radius: 0; }
 
 

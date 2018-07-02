@@ -53,6 +53,13 @@
         
         </div>
 
+        <div class="notification" id="notification">
+            <button class="delete"></button>
+            <div>Primar lorem ipsum dolor sit amet, consectetur
+            adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
+            consectetur adipiscing elit</div>
+        </div>
+
         <div class="main-wrapper">
 
             <main role="main" class="main">
@@ -75,12 +82,20 @@
 
                         <div class="tab1 tab convert-tab" id="tab1">
                             <form class="convert-form">
+
+                                <div class="amount-field field">
+                                    <label class="label">Convert</label>
+                                    <div class="control">
+                                        <input type="number" pattern="^[0-9]*$" class="input" placeholder="Enter Amount: 0.00" id="amount">
+                                    </div>
+                                </div>
+
                                 <div class="from-field field">
-                                    <label class="label">Convert from</label>
+                                    <label class="label">From</label>
                                     <div class="control">
                                         <div class="select">
                                             <select id="c1Field">
-                                                <option>Select currency</option>
+                                                <option value="">Select currency</option>
                                             </select>
                                         </div>
                                     </div>
@@ -90,15 +105,9 @@
                                     <div class="control">
                                         <div class="select">
                                             <select id="c2Field">
-                                                <option>Select currency</option>
+                                                <option value="">Select currency</option>
                                             </select>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="amount-field field">
-                                    <label class="label">Enter Amount</label>
-                                    <div class="control">
-                                        <input type="number" class="input" placeholder="0.00">
                                     </div>
                                 </div>
                                 <div class="field">

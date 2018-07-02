@@ -37,6 +37,10 @@ At minimum users should be able to:
 
 ## Solution to challenge
 
+### Requirements
+
+Browser support: Latest versions of Chrome and Firefox
+
 ### Built With
 - Bulma framework
 
