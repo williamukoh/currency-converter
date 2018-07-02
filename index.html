@@ -7,7 +7,7 @@
         <meta name="description" content="Currency Concerter - ALCWithGoogle #7DaysofCodeChallenge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="assets/css/build.min.css?t=1530486049709">
+        <link rel="stylesheet" href="assets/css/build.min.css?t=1530511642993">
     </head>
     <body>
 
@@ -59,8 +59,7 @@
 
                 <header>
                     <h1>Currency Converter</h1>
-                    <h3>Currency Converter is a simple web app made for #7DaysofCodeChallenge</h3>
-                    <p>Convert one currency to another</p>
+                    <p>Convert one currency to another. It's that simple.</p>
                 </header>
 
                 <section class="converter-wrapper">
@@ -75,27 +74,36 @@
                     <div class="tabs-content">
 
                         <div class="tab1 tab convert-tab" id="tab1">
-                            <form>
-                                <div class="field">
+                            <form class="convert-form">
+                                <div class="from-field field">
                                     <label class="label">Convert from</label>
                                     <div class="control">
                                         <div class="select">
                                             <select id="c1Field">
                                                 <option>Select currency</option>
-                                                <option>With options</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="field">
+                                <div class="to-field field">
                                     <label class="label">To</label>
                                     <div class="control">
                                         <div class="select">
                                             <select id="c2Field">
                                                 <option>Select currency</option>
-                                                <option>With options</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="amount-field field">
+                                    <label class="label">Enter Amount</label>
+                                    <div class="control">
+                                        <input type="number" class="input" placeholder="0.00">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <a class="submit-btn button is-medium is-black" id="convertBtn">Convert</a>
                                     </div>
                                 </div>
                             </form>
@@ -133,6 +141,6 @@
     
 
 
-        <script src="assets/js/build.js?t=1530486049709"></script>
+        <script src="assets/js/build.js?t=1530511642993"></script>
     </body>
 </html>
