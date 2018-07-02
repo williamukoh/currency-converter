@@ -49,7 +49,7 @@ div.preloader-wrapper.hide { opacity: 0; }
 .navbar-menu { font-size:0.95rem; }
 .main-header { border-bottom:1px solid #ececec; }
 
-.main-wrapper { padding: 1em 0;  max-width:950px; }
+.main-wrapper { margin-top:0; padding: 1em 0;  max-width:950px; }
 main { padding:0 15px; margin-left:auto; margin-right:auto; }
 .converter-wrapper { margin:2em 0 1em; }
 .converter-wrapper .tabs { margin-bottom: 0; }
@@ -69,7 +69,7 @@ main { padding:0 15px; margin-left:auto; margin-right:auto; }
 .field { margin-top:1.5em; margin-bottom:1.5em; }
 .amount-field input { width:220px !important; text-align: right; }
 .submit-btn { width:220px !important; }
-.notification { display:none; font-weight:bold; line-height: 1.7; border-radius: 0; }
+.notification { margin-bottom:0; display:none; font-weight:bold; line-height: 1.7; border-radius: 0; }
 
 .results { padding:1em 0; display:none; }
 .results p { margin:0; color:$primary; }

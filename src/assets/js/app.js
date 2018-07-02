@@ -116,7 +116,7 @@ class App {
             return;
         }
 
-        const _amount = this.amountField.value;
+        const _amount = parseInt(this.amountField.value);
         const _from = this.c1Field.options[this.c1Field.selectedIndex].value;
         const _to = this.c2Field.options[this.c2Field.selectedIndex].value;
 
@@ -131,8 +131,9 @@ class App {
           const _currencyPair = Object.keys(_result).join();
           console.log( _currencyPair, _result[_currencyPair].val );
 
+          let _totalAmount = Number(_result[_currencyPair].val * _amount).toLocaleString();
           this.results.firstElementChild.innerHTML = `${_amount} ${_from} equals`;
-          this.results.lastElementChild.innerHTML = `${Number.parseFloat(_result[_currencyPair].val).toFixed(3)} ${_to}`;
+          this.results.lastElementChild.innerHTML = `${_totalAmount} ${_to}`;
 
           this.results.style.display = "block";
 
