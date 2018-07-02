@@ -21,9 +21,11 @@ class App {
         this.enableTabs = true;
         this.notification = this.id("notification");
 
+        this.results = this.id("results");
+
     }
 
-    id($idname = "") {
+    id( $idname = "" ) {
         return (typeof $idname !== "string" || !$idname.length) ? null : document.getElementById($idname);
     }
 
@@ -39,6 +41,7 @@ class App {
 
         // Tabs
         this.tab2.style.display = "none";
+        this.results.style.display = "none";
 
         this.tab1Btn.addEventListener("click", () => {
             if (!this.enableTabs)
@@ -67,11 +70,9 @@ class App {
         });
 
         document.documentElement.addEventListener("click", ($evt) => {
-
             if ($evt.target == document.querySelector("button.delete")) {
                 $evt.target.parentNode.style.display = "none";
             }
-
         });
 
     }
@@ -124,9 +125,16 @@ class App {
           this.enableTabs = false;
           this.convertBtn.setAttribute("disabled","disabled");
           this.convertBtn.classList.toggle("is-loading");
+          this.results.style.display = "none";
 
-          const _result = await this.converter.convert( _amount, _from, _to );
-          console.log( _result );
+          const _result = await this.converter.convert( parseInt(_amount), _from, _to );
+          const _currencyPair = Object.keys(_result).join();
+          console.log( _currencyPair, _result[_currencyPair].val );
+
+          this.results.firstElementChild.innerHTML = `${_amount} ${_from} equals`;
+          this.results.lastElementChild.innerHTML = `${Number.parseFloat(_result[_currencyPair].val).toFixed(3)} ${_to}`;
+
+          this.results.style.display = "block";
 
         } catch( $error ) {
           let _errormsg = `Error converting from ${_from} to ${_to} [${$error}]`;

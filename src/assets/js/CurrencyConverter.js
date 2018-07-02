@@ -10,7 +10,7 @@
   class CurrencyConverter {
 
     constructor() {
-  
+      this.API_ENDPOINT = "https://free.currencyconverterapi.com/api/v5";
     }
   
     init() {
@@ -25,7 +25,7 @@
 
       return new Promise( (resolves, rejects) => {
         
-        fetch( "https://free.currencyconverterapi.com/api/v5/currencies" ).then( ($result) => {
+        fetch( `${this.API_ENDPOINT}/currencies` ).then( ($result) => {
           $result.json().then( ($data) => {
             resolves($data);
           })
@@ -37,9 +37,17 @@
     }
 
     convert( $amount=0, $fromCurrency="", $toCurrency="" ) {
+
+      if( !$amount || !$fromCurrency || !$toCurrency ) 
+        return Promise.reject( "Specify amount and currencies" );
+
       return new Promise( ( $resolves, $rejects ) => {
 
-        setTimeout( () => $resolves("data loaded"), 3000 );
+        fetch( `${this.API_ENDPOINT}/convert?q=${$fromCurrency}_${$toCurrency}&compact=y` ).then( ($result) => {
+          $result.json().then( ($data) => {
+            $resolves($data);
+          });
+        })
 
       })
     }
