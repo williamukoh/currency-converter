@@ -3,7 +3,80 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="notification" id="notification">
+        <button class="delete"></button>
+        <div>Primar lorem ipsum dolor sit amet, consectetur
+        adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
+        consectetur adipiscing elit</div>
+    </div>
+
+    <div class="main-wrapper">
+
+        <main role="main" class="main">
+
+            <header>
+                <h1>Currency Converter</h1>
+                <p>Convert one currency to another. It's that simple.</p>
+            </header>
+
+            <section class="converter-wrapper">
+
+                <div class="tabs is-medium">
+                    <ul>
+                        <li class="is-active"><a id="tab1Btn">Convert</a></li>
+                        <li><a id="tab2Btn">History</a></li>
+                    </ul>
+                </div>
+
+                <div class="tabs-content">
+
+                    <div class="tab1 tab convert-tab" id="tab1">
+                        <form class="convert-form">
+
+                            <div class="amount-field field">
+                                <label class="label">Convert</label>
+                                <div class="control">
+                                    <input type="number" value="1" pattern="^[0-9]*$" class="input" placeholder="Enter Amount: 0.00" id="amount">
+                                </div>
+                            </div>
+
+                            <div class="from-field field">
+                                <label class="label">From</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="c1Field">
+                                            <option value="">Select currency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="to-field field">
+                                <label class="label">To</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="c2Field">
+                                            <option value="">Select currency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <a class="submit-btn button is-medium is-black" id="convertBtn">Convert</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab2 tab history-tab" id="tab2">
+                        History
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
 
     </div>
     

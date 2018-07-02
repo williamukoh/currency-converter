@@ -42,7 +42,7 @@ At minimum users should be able to:
 Browser support: Latest versions of Chrome and Firefox
 
 ### Built With
-- Bulma framework
+- Bulma framework - [https://bulma.io](https://bulma.io)
 
 ### Getting Started
 - Clone repo `git clone http://github.com/williamukoh/currency-converter`
@@ -60,5 +60,5 @@ Solution to challenge is licensed under the MIT License - see the [LICENSE](LICE
 
 
 ## Author
-[@williamukoh](https://twitter.com/williamukoh)
+[@williamukoh](https://twitter.com/williamukoh). Proudly 🇳🇬
 

@@ -29,58 +29,6 @@ class App {
 
     init() {
 
-        document.documentElement.classList.toggle("no-js");
-        document.documentElement.classList.add("js");
-
-        const whichTransitionEvent = () => {
-            var t,
-                el = document.createElement("fakeelement");
-
-            var transitions = {
-                "transition": "transitionend",
-                "OTransition": "oTransitionEnd",
-                "MozTransition": "transitionend",
-                "WebkitTransition": "webkitTransitionEnd"
-            }
-
-            for (t in transitions) {
-                if (el.style[t] !== undefined) {
-                    return transitions[t];
-                }
-            }
-        }
-
-        let _preloader = document.querySelector(".preloader-wrapper");
-
-        _preloader.addEventListener(whichTransitionEvent(), () => {
-            _preloader.parentNode.removeChild(_preloader);
-        });
-
-        window.onresize = () => {
-
-            let _nav = document.querySelector(".navbar-menu");
-
-            if (getComputedStyle(_nav).display == "none")
-                _nav.setAttribute("data-hidden", "true");
-            else
-                _nav.setAttribute("data-hidden", "false");
-
-        };
-
-        document.querySelector(".navbar-burger").addEventListener("click", ($evt) => {
-
-            let _nav = document.querySelector(".navbar-menu");
-
-            if (_nav.getAttribute("data-hidden") == "true") {
-                _nav.style.display = "block";
-                _nav.setAttribute("data-hidden", "false");
-            } else {
-                _nav.style.display = "none";
-                _nav.setAttribute("data-hidden", "true");
-            }
-
-        });
-
         this.initUI();
         this.loadCurrency();
 
@@ -126,18 +74,6 @@ class App {
 
         });
 
-        window.onload = ($evt) => {
-            // return;
-            let _nav = document.querySelector(".navbar-menu");
-
-            if (getComputedStyle(_nav).display == "none")
-                _nav.setAttribute("data-hidden", "true");
-            else
-                _nav.setAttribute("data-hidden", "false");
-
-            document.querySelector(".preloader-wrapper").classList.add("hide");
-        }
-
     }
 
     loadCurrency() {
@@ -175,26 +111,31 @@ class App {
         this.toggleNotification(0);
 
         if ( !this.formIsValid() ) {
-            this.toggleNotification(1, "Select your desired currency", "is-warning");
+            this.toggleNotification(1, "Enter Amount and specify the currency", "is-warning");
+            return;
         }
 
+        const _amount = this.amountField.value;
+        const _from = this.c1Field.options[this.c1Field.selectedIndex].value;
+        const _to = this.c2Field.options[this.c2Field.selectedIndex].value;
+
         try {
-          const _amount = this.amountField.value;
-          const _from = this.c1Field.options[this.c1Field.selectedIndex].value;
-          const _to = this.c2Field.options[this.c2Field.selectedIndex].value;
 
           this.enableTabs = false;
           this.convertBtn.setAttribute("disabled","disabled");
+          this.convertBtn.classList.toggle("is-loading");
 
           const _result = await this.converter.convert( _amount, _from, _to );
           console.log( _result );
 
         } catch( $error ) {
-          this.toggleNotification( 1,`Error converting from ${_from} to ${_to} [${$error}]` );
+          let _errormsg = `Error converting from ${_from} to ${_to} [${$error}]`;
+          this.toggleNotification( 1, _errormsg, "is-danger" );
         }
 
         this.enableTabs = true;
         this.convertBtn.removeAttribute("disabled");
+        this.convertBtn.classList.toggle("is-loading");
     }
 
     formIsValid() {
@@ -232,4 +173,75 @@ const ready = (fn) => {
 }
 
 
-ready(() => window.thisApp = new App(new CurrencyConverter()).init());
+ready( () => { 
+
+  document.documentElement.classList.toggle("no-js");
+  document.documentElement.classList.add("js");
+
+  const whichTransitionEvent = () => {
+      var t,
+          el = document.createElement("fakeelement");
+
+      var transitions = {
+          "transition": "transitionend",
+          "OTransition": "oTransitionEnd",
+          "MozTransition": "transitionend",
+          "WebkitTransition": "webkitTransitionEnd"
+      }
+
+      for (t in transitions) {
+          if (el.style[t] !== undefined) {
+              return transitions[t];
+          }
+      }
+  }
+
+  window.onresize = () => {
+
+      let _nav = document.querySelector(".navbar-menu");
+
+      if (getComputedStyle(_nav).display == "none")
+          _nav.setAttribute("data-hidden", "true");
+      else
+          _nav.setAttribute("data-hidden", "false");
+
+  };
+
+  document.querySelector(".navbar-burger").addEventListener("click", ($evt) => {
+
+      let _nav = document.querySelector(".navbar-menu");
+
+      if (_nav.getAttribute("data-hidden") == "true") {
+          _nav.style.display = "block";
+          _nav.setAttribute("data-hidden", "false");
+      } else {
+          _nav.style.display = "none";
+          _nav.setAttribute("data-hidden", "true");
+      }
+
+  });
+
+  let _preloader = document.querySelector(".preloader-wrapper");
+
+  _preloader.addEventListener(whichTransitionEvent(), () => {
+      _preloader.parentNode.removeChild(_preloader);
+  });
+  
+  window.onload = ($evt) => {
+      // return;
+      let _nav = document.querySelector(".navbar-menu");
+
+      if (getComputedStyle(_nav).display == "none")
+          _nav.setAttribute("data-hidden", "true");
+      else
+          _nav.setAttribute("data-hidden", "false");
+
+      document.querySelector(".preloader-wrapper").classList.add("hide");
+  }
+
+  if( !document.querySelectorAll(".converter-wrapper").length )
+    return;
+
+  window.thisApp = new App(new CurrencyConverter()).init();
+
+});
