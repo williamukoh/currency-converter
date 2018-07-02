@@ -1,4 +1,86 @@
 /* requires: CurrencyConverter.js */
+
+// private methods
+class App {
+
+    constructor( $converter = null ) {
+
+      this.c1Field = this.id("c1Field");
+      this.c2Field = this.id("c2Field");
+      this.amountField = this.id("amount"); 
+      this.convertBtn = this.id("convertBtn");
+
+      this.tab1Btn = this.id("tab1Btn");
+      this.tab2Btn = this.id("tab2Btn");
+
+      this.tab1 = this.id("tab1");
+      this.tab2 = this.id("tab2");
+
+      this.converter = $converter;
+
+      this.enableTabs = true;
+
+    }
+
+    id( $idname = "" ){
+      return ( typeof $idname !== "string" || !$idname.length ) ? null : document.getElementById($idname);
+    }
+
+    init() {
+      
+      this.initTabs();
+      this.loadCurrency();
+
+      return this;
+    }
+
+    initTabs() {
+      this.tab2.style.display = "none";
+
+      this.tab1Btn.addEventListener("click", () => {
+        if( !this.enableTabs )
+          return;
+        this.tab1.style.display = "block";
+        this.tab2.style.display = "none";
+
+        this.tab1Btn.parentNode.classList.toggle("is-active");
+        this.tab2Btn.parentNode.classList.toggle("is-active");
+      });
+
+      this.tab2Btn.addEventListener("click", () => {
+        if( !this.enableTabs )
+          return;
+        this.tab1.style.display = "none";
+        this.tab2.style.display = "block";
+
+        this.tab1Btn.parentNode.classList.toggle("is-active");
+        this.tab2Btn.parentNode.classList.toggle("is-active");
+      });
+    }
+
+    loadCurrency() {
+      this.enableTabs = false;
+      // this.convertBtn.classList.toggle("is-loading");
+      this.convertBtn.setAttribute("disabled", "disabled");
+
+      this.converter.getCurrencies().then( ( $data ) => {
+
+        console.log($data.results);
+
+        for (const [key, value] of Object.entries($data.results)) {
+          this.c1Field.options.add( new Option( value.currencyName, key ) );
+          this.c2Field.options.add( new Option( value.currencyName, key ) );  
+        }
+
+        this.convertBtn.removeAttribute("disabled");
+
+      }).catch( (error) => {
+        console.log(error);
+      });
+
+    }
+
+}
 const ready = (fn) => {
     if (document.readyState != 'loading') {
       fn();
@@ -8,59 +90,8 @@ const ready = (fn) => {
   }
   
 
-  // private methods
-class App {
-
-  constructor() {
-
-    this.c1Field = this.id("c1Field");
-    this.c2Field = this.id("c2Field");
-    this.amountField = this.id("amount"); 
-    this.convertBtn = this.id("convertBtn");
-
-    this.tab1Btn = this.id("tab1Btn");
-    this.tab2Btn = this.id("tab2Btn");
-
-    this.tab1 = this.id("tab1");
-    this.tab2 = this.id("tab2");
-
-    this.enableTabs = true;
-
-  }
-
-  id( $idname = "" ){
-    return ( typeof $idname !== "string" || !$idname.length ) ? null : document.getElementById($idname);
-  }
-
-  init() {
-    
-    this.tab2.style.display = "none";
-
-    this.tab1Btn.addEventListener("click", () => {
-      if( !this.enableTabs )
-        return;
-      this.tab1.style.display = "block";
-      this.tab2.style.display = "none";
-
-      this.tab1Btn.parentNode.classList.toggle("is-active");
-      this.tab2Btn.parentNode.classList.toggle("is-active");
-    });
-
-    this.tab2Btn.addEventListener("click", () => {
-      if( !this.enableTabs )
-        return;
-      this.tab1.style.display = "none";
-      this.tab2.style.display = "block";
-
-      this.tab1Btn.parentNode.classList.toggle("is-active");
-      this.tab2Btn.parentNode.classList.toggle("is-active");
-    });
-  }
-
-
-}
 ready( () =>  {
-
+  // return;
   document.documentElement.classList.toggle( "no-js" );
   document.documentElement.classList.add( "js" );
 
@@ -112,14 +143,12 @@ ready( () =>  {
 
   })
 
-  window.thisApp = new App();
-  thisApp.init();
-
-  new CurrencyConverter().init();
+  window.thisApp = new App(new CurrencyConverter()).init();
 
 });
 
 window.onload = ( e ) =>  {
+  // return;
   let _nav = document.querySelector(".navbar-menu");
 
   if( getComputedStyle(_nav).display == "none" ) 

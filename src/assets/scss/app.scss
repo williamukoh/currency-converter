@@ -26,7 +26,7 @@ h4 { font-size: 1.1rem; }
             animation: sk-rotatePlane 1.2s infinite ease-in-out; 
 }
 
-div.preloader-wrapper { z-index:999; transition:opacity 0.7s; position: absolute; display: flex; justify-content: center; align-items: center; width:100%; top:0; left:0; right:0; bottom: 0; background:rgba(82, 103, 223, 1); }
+div.preloader-wrapper { z-index:999; transition:opacity 0.7s; position: fixed; display: flex; justify-content: center; align-items: center; width:100%; top:0; left:0; right:0; bottom: 0; background:rgba(82, 103, 223, 1); }
 div.preloader-wrapper.hide { opacity: 0; }
 
 .navbar-brand a { color:$primary-color; font-family: "BlissRegular", sans-serif; font-weight: bold; text-transform: uppercase; }
@@ -40,8 +40,13 @@ main { padding:0 15px; margin-left:auto; margin-right:auto; }
 
 .tabs a { cursor: pointer; }
 .tabs-content { position: relative; }
-.tabs-content .tab { padding:1em; position: absolute; top:0; left:0; right:0; width: 100%; }
-.tab1 { z-index:1; background: turquoise; }
-.tab2 { z-index:2; background: skyblue; }
+.tabs-content .tab { padding:1em 0; position: absolute; top:0; left:0; right:0; width: 100%; }
+.tab1 { z-index:1; }
+.tab2 { z-index:2; }
+
+.convert-form .field:first-child { margin-top: 0; }
+.field { margin-top:1.5em; margin-bottom:1.5em; }
+.amount-field input { width:165px !important; text-align: right; }
+.submit-btn { width:165px !important; }
 
 
