@@ -7,149 +7,143 @@
         <meta name="description" content="Currency Concerter - ALCWithGoogle #7DaysofCodeChallenge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="assets/css/build.min.css?t=1530534791623">
+        <link rel="stylesheet" href="assets/css/build.min.css">
     </head>
     <body>
 
-    <div class="preloader-wrapper">
-        <div class="preloader">
-            <div class="sk-rotating-plane"></div>
+        <div class="preloader-wrapper">
+            <div class="preloader">
+                <div class="sk-rotating-plane"></div>
+            </div>
         </div>
-    </div>
-  
-    <div class="page-wrapper">
     
-        <div class="header-wrapper">
+        <div class="page-wrapper">
+
+            <div class="header-wrapper">
         
-            <header role="banner" class="main-header">
-                
-                <nav class="navbar" role="navigation" aria-label="main navigation">
+    <header role="banner" class="main-header">
+        
+        <nav class="navbar" role="navigation" aria-label="main navigation">
 
-                    <div class="navbar-brand">
+            <div class="navbar-brand">
 
-                        <a class="navbar-item" href="http://williamukoh.github.io/currencyconverter">
-                            Currency <span>Converter</span>
-                        </a>
+                <a class="navbar-item" href="http://williamukoh.github.io/currencyconverter">
+                    Currency <span>Converter</span>
+                </a>
 
-                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                        </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
 
-                    </div>
+            </div>
 
-                    <div class="navbar-menu">
-                        <div class="navbar-end">
-                            <a class="navbar-item" href="index.html">Home</a>
-                            <a class="navbar-item" href="about.html">About</a>
-                            <a class="navbar-item" href="http://github.com/williamukoh/currency-converter">Github</a>
-                        </div>
-                    </div>
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="index.html">Home</a>
+                    <a class="navbar-item" href="about.html">About</a>
+                    <a class="navbar-item" href="http://github.com/williamukoh/currency-converter">Github</a>
+                </div>
+            </div>
 
-                </nav>
-                
+        </nav>
+        
+    </header>
+
+</div>
+
+            
+
+    <div class="notification" id="notification">
+        <button class="delete"></button>
+        <div>Primar lorem ipsum dolor sit amet, consectetur
+        adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
+        consectetur adipiscing elit</div>
+    </div>
+
+    <div class="main-wrapper">
+
+        <main role="main" class="main">
+
+            <header>
+                <h1>Currency Converter</h1>
+                <p>Convert one currency to another. It's that simple.</p>
             </header>
-        
-        </div>
 
-        <div class="notification" id="notification">
-            <button class="delete"></button>
-            <div>Primar lorem ipsum dolor sit amet, consectetur
-            adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
-            consectetur adipiscing elit</div>
-        </div>
+            <section class="converter-wrapper">
 
-        <div class="main-wrapper">
+                <div class="tabs is-medium">
+                    <ul>
+                        <li class="is-active"><a id="tab1Btn">Convert</a></li>
+                        <li><a id="tab2Btn">History</a></li>
+                    </ul>
+                </div>
 
-            <main role="main" class="main">
+                <div class="tabs-content">
 
-                <header>
-                    <h1>Currency Converter</h1>
-                    <p>Convert one currency to another. It's that simple.</p>
-                </header>
+                    <div class="tab1 tab convert-tab" id="tab1">
+                        <form class="convert-form">
 
-                <section class="converter-wrapper">
+                            <div class="amount-field field">
+                                <label class="label">Convert</label>
+                                <div class="control">
+                                    <input type="number" value="1" pattern="^[0-9]*$" class="input" placeholder="Enter Amount: 0.00" id="amount">
+                                </div>
+                            </div>
 
-                    <div class="tabs is-medium">
-                        <ul>
-                            <li class="is-active"><a id="tab1Btn">Convert</a></li>
-                            <li><a id="tab2Btn">History</a></li>
-                        </ul>
+                            <div class="from-field field">
+                                <label class="label">From</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="c1Field">
+                                            <option value="">Select currency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="to-field field">
+                                <label class="label">To</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="c2Field">
+                                            <option value="">Select currency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <a class="submit-btn button is-medium is-black" id="convertBtn">Convert</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="tabs-content">
-
-                        <div class="tab1 tab convert-tab" id="tab1">
-                            <form class="convert-form">
-
-                                <div class="amount-field field">
-                                    <label class="label">Convert</label>
-                                    <div class="control">
-                                        <input type="number" pattern="^[0-9]*$" class="input" placeholder="Enter Amount: 0.00" id="amount">
-                                    </div>
-                                </div>
-
-                                <div class="from-field field">
-                                    <label class="label">From</label>
-                                    <div class="control">
-                                        <div class="select">
-                                            <select id="c1Field">
-                                                <option value="">Select currency</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="to-field field">
-                                    <label class="label">To</label>
-                                    <div class="control">
-                                        <div class="select">
-                                            <select id="c2Field">
-                                                <option value="">Select currency</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="control">
-                                        <a class="submit-btn button is-medium is-black" id="convertBtn">Convert</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="tab2 tab history-tab" id="tab2">
-                            History
-                        </div>
-
+                    <div class="tab2 tab history-tab" id="tab2">
+                        History
                     </div>
 
-                </section>
+                </div>
 
-            </main>
+            </section>
 
-        </div>
-
-        <div class="footer-wrapper">
-
-            <footer role="contentinfo">
-
-            </footer>
-
-        </div>
-    
-    </div>
-
-        
-
-        
-
-    <div class="container">
+        </main>
 
     </div>
     
 
 
-        <script src="assets/js/build.js?t=1530534791623"></script>
+            <div class="footer-wrapper">
+
+    <footer role="contentinfo">
+
+    </footer>
+
+</div>
+
+        </div>
+
+        <script src="assets/js/build.js"></script>
     </body>
 </html>
