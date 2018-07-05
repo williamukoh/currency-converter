@@ -98,12 +98,12 @@ gulp.task('sass+css', gulp.series('images', function() {
 // copy
 gulp.task('copy', function() {
 
-    // nothing to do. just move the files
-    gulp.src( folder.src + 'assets/js/sw.js' )
-      .pipe( gulp.dest( folder.dist ) );
-      
-    return gulp.src( folder.src + 'assets/fonts/**/*' )
-      .pipe( gulp.dest( folder.dist + "assets/fonts" ) );
+  // nothing to do. just move the files
+  gulp.src( folder.src + 'assets/js/sw.js' )
+    .pipe( gulp.dest( folder.dist ) );
+    
+  return gulp.src( folder.src + 'assets/fonts/**/*' )
+    .pipe( gulp.dest( folder.dist + "assets/fonts" ) );
 
 });
 
@@ -181,6 +181,9 @@ gulp.task('watch', function() {
   
     // javascript changes
     gulp.watch(folder.src + 'assets/js/**/*.js', gulp.series('js', 'html') );
+
+    // service worker changes
+    gulp.watch(folder.src + 'sw.js', gulp.parallel('copy') );
   
     // css changes
     // gulp.watch(folder.src + 'assets/css/**/*.css', ['css']);
