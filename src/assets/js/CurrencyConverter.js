@@ -10,19 +10,46 @@
   class CurrencyConverter {
 
     constructor() {
-  
+      this.API_ENDPOINT = "https://free.currencyconverterapi.com/api/v5";
     }
   
     init() {
-      console.log("hello world")
+      
     }
 
     [privateMethod] () {
-      console.log( "Howdy!" );
+      console.log( "private" );
     }
 
-    publicMethod() {
-      this[privateMethod]();
+    getCurrencies() {
+
+      return new Promise( (resolves, rejects) => {
+        
+        fetch( `${this.API_ENDPOINT}/currencies` ).then( ($result) => {
+          $result.json().then( ($data) => {
+            resolves($data);
+          })
+        }).catch( ($error) => {
+          rejects( `Failed to load currencies from remote API [${$error}]` );
+        })
+        
+      });
+    }
+
+    convert( $amount=0, $fromCurrency="", $toCurrency="" ) {
+
+      if( !$amount || !$fromCurrency || !$toCurrency ) 
+        return Promise.reject( "Specify amount and currencies" );
+
+      return new Promise( ( $resolves, $rejects ) => {
+
+        fetch( `${this.API_ENDPOINT}/convert?q=${$fromCurrency}_${$toCurrency}&compact=y` ).then( ($result) => {
+          $result.json().then( ($data) => {
+            $resolves($data);
+          });
+        })
+
+      })
     }
 
     static noConflict() {

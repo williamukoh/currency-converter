@@ -37,16 +37,22 @@ At minimum users should be able to:
 
 ## Solution to challenge
 
+### Requirements
+
+Browser support: Latest versions of Chrome and Firefox
+
 ### Built With
+- Bulma framework - [https://bulma.io](https://bulma.io)
 
 ### Getting Started
+- Clone repo `git clone http://github.com/williamukoh/currency-converter`
+- Run `npm install` to install dependencies
 
+### Running solution
 
-### Prerequisites
-
-
-### Installing and Running solution
-
+- Ensure you're in the root directory of project
+- Run `npm start` and browse to `http://localhost:3000` to view project
+- To deploy to Github pages, run `npm run deploy` and visit `http://<GITHUB-USERNAME>.github.com/currency-converter`
 
 ## License
 
@@ -54,5 +60,5 @@ Solution to challenge is licensed under the MIT License - see the [LICENSE](LICE
 
 
 ## Author
-[@williamukoh](https://twitter.com/williamukoh)
+[@williamukoh](https://twitter.com/williamukoh). Proudly 🇳🇬
 
